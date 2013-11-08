@@ -5,10 +5,8 @@
 % Date:    27/04/2013
 % Last modified: 29/10/2013
 % -------------------------------------------------------------------
-function imgRec = FusionOurs(img1, img2, imgName)
+function imgRec = MWGFusion(img1, img2, para)
     
-    %% ----------------- Load the parameter -------------------
-    para = ParaLoad(imgName);
     %% ----------------- Compute the weights ------------------
     if size(img1, 3) == 1,
         img1Gray = img1;
@@ -18,39 +16,36 @@ function imgRec = FusionOurs(img1, img2, imgName)
         img2Gray = RGBTOGRAY(img2);
     end
     
-    
+    % ----- Compute the gradient ------
     [dx1, dy1] = GradientMethod(img1Gray, 'zhou'); 
     [dx2, dy2] = GradientMethod(img2Gray, 'zhou');
     dxdy1 = dx1+1i*dy1;
     dxdy2 = dx2+1i*dy2;
     
-    % ---- judge the front image ------------
     para.Prune.oppo = 0;
     [~, ~, wt1, wt2] = WeightGradient(imresize(dxdy1, 0.25), imresize(dxdy2, 0.25), para);
     aa = wt1>wt2+eps;
     if sum(aa(:))/numel(wt1) > 0.5,
         para.Prune.oppo = 1;
     end
-        
-    % ---------------------------------------
   
-    
+    % Compute the Large and small scale structure saliency Q
     if isfield(para, 'LScale'),
-        fileName = [imgName num2str(para.LScale.sigma*10) '.mat'];
-        [wtL1, wtL2] = LoadWeightGradient(dxdy1, dxdy2, para.LScale, fileName);
-    end
+        disp('Compute the large scale structure saliency Q:')
+        [~, ~, wtL1, wtL2] = WeightGradient(dxdy1, dxdy2, para.LScale); 
+    end  
     
     if isfield(para, 'SScale'),
-        fileName = [imgName num2str(para.SScale.sigma*10) '.mat'];
-        [wtS1, wtS2] = LoadWeightGradient(dxdy1, dxdy2, para.SScale, fileName);
+        disp('Compute the small scale structure saliency Q:')
+        [~, ~, wtS1, wtS2] = WeightGradient(dxdy1, dxdy2, para.SScale); 
     else
         error('The scale must have the small scale');
     end
     
-    % 
+    % Combining multi-scale information 
     if exist('wtL1', 'var'),
-        % ------ Prune the parameter ------------
-        wt1 = PruneWeights(wtL1, wtL2, wtS1, wtS2, para.Prune);
+        disp('Combining multi-scale information:')
+        wt1 = MergeWeights(wtL1, wtL2, wtS1, wtS2, para.Prune);
         ww1 = ordfilt2(wt1, 5, ones(3, 3));
         ww2 = 1 - ww1;
     else
@@ -60,11 +55,13 @@ function imgRec = FusionOurs(img1, img2, imgName)
     
     % Show
     if isfield(para.Prune, 'show') && para.Prune.show,
-        ShowImageGrad(ww1);
+        paraShow.title = 'Weight';
+        ShowImageGrad(ww1, paraShow);
     end
     
-    %% ----------------- Recover the Image --------------------
+    %% ----------------- Weighted gradient-based fusion --------------------
     imgRec = zeros(size(img1));
+    disp('Gradient-based fusion:')
     for ii = 1:size(img1, 3),
         [dx1, dy1] = GradientMethod(img1(:, :, ii), 'zhou'); 
         [dx2, dy2] = GradientMethod(img2(:, :, ii), 'zhou');

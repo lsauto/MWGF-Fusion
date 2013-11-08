@@ -30,35 +30,30 @@ function script_fusion()
 % 
 %     path1 = '.\image\seascape_A.bmp';
 %     path2 = '.\image\seascape_B.bmp';
-% % %
+% % % 
     % -----------------------------------------
-    [img1, img2, imgName] = PickName(path1, path2, 0);
+    [img1, img2] = PickName(path1, path2, 0);
+    imgRec = FusionOurs(img1, img2, para);
+
+    % Show the result
+%     cccc = clock;
+%     paraShow.fig = [num2str(cccc(5)) ' Recover ' upper(para.method) '(' para.name ')'];
+    paraShow.title = [upper(para.method)];
+    ShowImageGrad(imgRec, paraShow);
+%     ShowImageGrad(imgRec);
     paraShow.title = 'Org1';
     ShowImageGrad(img1, paraShow)
     paraShow.title = 'Org2';
     ShowImageGrad(img2, paraShow)
-    %% ---- The parameter -----
-    % ------------- the Large Scale ---------
-    para.LScale.sigma = 4;
-    para.LScale.alpha = 0.5;
-    % ----------- the Small Scale -----------
-    para.SScale.sigma = 0.5;
-    para.SScale.alpha = 0.5;
-    % -------------- the prune parameter -------------
-    para.Prune.per = 0.1;
-    para.Prune.show = 1;
-    % ------------- the recover parameter -----------
-    para.Rec.iter = 1000;
-    para.Rec.res = 1e-6;
-    para.Rec.modify = 5;
-    para.Rec.iniMode = 'weight';   
     
-    %% ---- Fusion and the result ------
-    imgRec = MWGFusion(img1, img2, para);
-
-    % --- Show the result ------
-    paraShow.title = 'MWGF';
-    ShowImageGrad(imgRec, paraShow);
-    saveas(gcf, [imgName 'mwgf'], 'bmp');
+    
+%     dir = '.\temp\';
+%     fileName = [para.name '-' para.method '.eps'];
+%     fileName = strcat(dir, fileName);
+%     if size(img1, 3) == 1,
+%         print(gcf, '-deps', fileName);
+%     else
+%         print(gcf, '-depsc', fileName);
+%     end
    
 end
