@@ -11,24 +11,24 @@ function script_fusion()
     clc
 
     % ------------- The Gray ----------------
-%     path1 = '.\image\clock_A.bmp';
-%     path2 = '.\image\clock_B.bmp';
-%     path1 = '.\image\book1.bmp';
-%     path2 = '.\image\book2.bmp';
-%     path2 = '.\image\color_flowerAA.png';
-%     path1 = '.\image\color_flowerBB.png';
-%     path2 = '.\image\disk1.tif';   
-%     path1 = '.\image\disk2.tif';
-%     path2 = '.\image\lab1.tif';
-%     path1 = '.\image\lab2.tif';
-%     path1 = '.\image\mulfocus1.tif';
-%     path2 = '.\image\mulfocus2.tif';
+    path1 = '.\image\clock_A.bmp';
+    path2 = '.\image\clock_B.bmp';
+%     path1 = '.\image\book_A.bmp';
+%     path2 = '.\image\book_B.bmp';
+%     path1 = '.\image\flower_A.png';
+%     path2 = '.\image\flower_B.png';
+%     path1 = '.\image\disk_A.tif';   
+%     path2 = '.\image\disk_B.tif';
+%     path1 = '.\image\lab_A.tif';
+%     path2 = '.\image\lab_B.tif';
+%     path1 = '.\image\pepsi_A.tif';
+%     path2 = '.\image\pepsi_B.tif';
     % -------------- The color -----------------  
-%     path2 = '.\image\lionAZ2.bmp';
-%     path1 = '.\image\lionBZ2.bmp';
+%     path1 = '.\image\temple_A.bmp';
+%     path2 = '.\image\temple_B.bmp';
 % 
-    path2 = '.\image\seascpape_6A.bmp';
-    path1 = '.\image\seascpape_6B.bmp';
+%     path1 = '.\image\seascape_A.bmp';
+%     path2 = '.\image\seascape_B.bmp';
 % % % 
     [img1, img2, para.name] = PickName(path1, path2, 0);
     % -----------------------------------------
@@ -48,8 +48,7 @@ function script_fusion()
     paraShow.title = 'Org2';
     ShowImageGrad(img2, paraShow)
     
-    disp([para.method ' :']);
-    Result=EvaluationFusion(img1,img2,imgRec,256);
+    
 %     dir = '.\temp\';
 %     fileName = [para.name '-' para.method '.eps'];
 %     fileName = strcat(dir, fileName);
