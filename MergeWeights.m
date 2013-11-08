@@ -130,8 +130,8 @@ function [ww1, ww2] = MergeWeights(wtL1, wtL2, wtS1, wtS2, para)
             tempWeights(validIdx1) = 255;    
         end
         tempWeights(validIdxMid) = 125;
-        paraShow.fig = ['Margin'];
-        paraShow.title = ['Margin'];
+        paraShow.fig = ['detected region'];
+        paraShow.title = ['detected region'];
         ShowImageGrad(tempWeights, paraShow); % Show the Margin
         
     end    

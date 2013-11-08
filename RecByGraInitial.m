@@ -6,7 +6,7 @@
 % Last modified: 31/03/2013
 % -------------------------------------------------------------------
 
-function [imgRec, rms, gObj] = RecoverByGraInitial(img1, img2, ww1, ww2, dxdy, iter, res, alpha, iniMode)
+function [imgRec, rms, gObj] = RecByGraInitial(img1, img2, ww1, ww2, dxdy, iter, res, alpha, iniMode)
 
     % ------------ Check parameter --------------
 %     narginchk(9, 9);
@@ -53,7 +53,7 @@ function [imgRec, rms, gObj] = RecoverByGra(imgOri, Obj, iter, res, alpha)
         f1 = min(f1, 255);
 
         rms=fRMS(f1, f0);
-%         disp(['The ' num2str(ii) 'iteration rms = ' num2str(rms)]);
+        disp(['The ' num2str(ii) 'iteration rms = ' num2str(rms)]);
         
 %         if rms < res,
 %             break;
