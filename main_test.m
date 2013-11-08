@@ -15,16 +15,16 @@ function main_test()
     % ------------- The Gray ----------------
     path1 = '.\image\lab_A.tif';
     path2 = '.\image\lab_B.tif';
-%     path1 = '.\image\book_A.bmp';
-%     path2 = '.\image\book_B.bmp';
-%     path1 = '.\image\flower_A.png';
-%     path2 = '.\image\flower_B.png';
-%     path1 = '.\image\disk_A.tif';   
-%     path2 = '.\image\disk_B.tif';
 %     path1 = '.\image\clock_A.bmp';
 %     path2 = '.\image\clock_B.bmp';
+%     path1 = '.\image\flower_A.png';
+%     path2 = '.\image\flower_B.png';
+%     path1 = '.\image\desk_A.tif';   
+%     path2 = '.\image\desk_B.tif';
 %     path1 = '.\image\pepsi_A.tif';
 %     path2 = '.\image\pepsi_B.tif';
+%     path1 = '.\image\book_A.bmp';
+%     path2 = '.\image\book_B.bmp';
     % -------------- The color -----------------  
 %     path1 = '.\image\temple_A.bmp';
 %     path2 = '.\image\temple_B.bmp';
@@ -55,7 +55,7 @@ function main_test()
     para.Rec.modify = 5;
     para.Rec.iniMode = 'weight';   
     
-    %% ---- Fusion and the result ------
+    %% ---- MWGF implementation ------
     imgRec = MWGFusion(img1, img2, para);
 
     % --- Show the result ------
