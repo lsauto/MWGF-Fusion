@@ -13,8 +13,8 @@ function main_test()
 
     %% ------ Input the images ----------------
     % ------------- The Gray ----------------
-    path1 = '.\image\lab_A.tif';
-    path2 = '.\image\lab_B.tif';
+%     path1 = '.\image\lab_A.tif';
+%     path2 = '.\image\lab_B.tif';
 %     path1 = '.\image\clock_A.bmp';
 %     path2 = '.\image\clock_B.bmp';
 %     path1 = '.\image\flower_A.png';
@@ -25,6 +25,8 @@ function main_test()
 %     path2 = '.\image\pepsi_B.tif';
 %     path1 = '.\image\book_A.bmp';
 %     path2 = '.\image\book_B.bmp';
+    path1 = '.\image\cameramanleft.jpg';
+    path2 = '.\image\cameramanright.jpg';
     % -------------- The color -----------------  
 %     path1 = '.\image\temple_A.bmp';
 %     path2 = '.\image\temple_B.bmp';
