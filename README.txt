@@ -1,14 +1,14 @@
 This package contains an implementation of the fusion algorithm described in
 the paper:
-"Multi-scale weighted gradient-based fusion for multi-focus image" 
-by Zhiqiang Zhou, Sun Li and Bo Wang.
+"Multi-scale weighted gradient-based fusion for multi-focus image" (Information 
+Fusion 2014) by Zhiqiang Zhou, Sun Li and Bo Wang.
 
-Usage of this code is free for research purposes only. 
-Please refer to the above publication if you use this code. 
+This matlab code is not fully optimized. It is only a reference for those who
+would like to implement our method. 
 
-Copyrights: Beijing Institute of Technology, 2013.
-All rights reserved.
+Usage of this code is free for research purposes only. Please refer to the 
+above publication if you use this code. 
 
-Please address comments/suggestions/bugs to zhzhzhou@bit.edu.cn
+
 ------------------------------------------------------------------------------
 To run the fusion algorithm, use the main_test.m. 
