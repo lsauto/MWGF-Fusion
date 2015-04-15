@@ -1,7 +1,7 @@
 % WeightGradient.m
 % -------------------------------------------------------------------
 % Date:    2/04/2013
-% Last modified: 18/04/2013
+% Last modified: 15/04/2015
 % -------------------------------------------------------------------
 function [ww1, ww2, wt1, wt2] = WeightGradient(dxdy1, dxdy2, para)
     
@@ -24,9 +24,9 @@ function [ww1, ww2, wt1, wt2] = WeightGradient(dxdy1, dxdy2, para)
         [~, cc1] = EigDecBlock(dxdy1, sigma);
         [~, cc2] = EigDecBlock(dxdy2, sigma);
         
-        wt1 = sqrt((sqrt(cc1(1,:,:)+eps)+sqrt(cc1(2,:,:)+eps)).^2 + alpha*(sqrt(cc1(1,:,:)+eps)-sqrt(cc1(2,:,:)+eps)).^2+eps);
+        wt1 = sqrt((sqrt(cc1(1,:,:))+sqrt(cc1(2,:,:))).^2 + alpha*(sqrt(cc1(1,:,:))-sqrt(cc1(2,:,:))).^2);
         wt1 = squeeze(wt1);
-        wt2 = sqrt((sqrt(cc2(1,:,:)+eps)+sqrt(cc2(2,:,:)+eps)).^2 + alpha*(sqrt(cc2(1,:,:)+eps)-sqrt(cc2(2,:,:)+eps)).^2+eps);
+        wt2 = sqrt((sqrt(cc2(1,:,:))+sqrt(cc2(2,:,:))).^2 + alpha*(sqrt(cc2(1,:,:))-sqrt(cc2(2,:,:))).^2);
         wt2 = squeeze(wt2);
         
         % normlaization
@@ -51,32 +51,46 @@ function [postMap, ss] = EigDecBlock(img, sigma)
     
     h = fspecial('gauss', [winSize winSize], sigma);
     
-    win = floor(winSize/2);
+%     win = floor(winSize/2);
     [hh, ww] = size(img); 
-    imgPad = padarray(img, [win win], 'symmetric', 'both');
+%     imgPad = padarray(img, [win win], 'symmetric', 'both');
     
     postMap = zeros(hh, ww);
     ss = zeros(2, hh, ww);
 %     disp('The Eig Decompose:');
-    for ii = 1:hh,
-        for jj = 1:ww,
-            patch = imgPad(ii:ii+winSize-1, jj:jj+winSize-1);
-            dx = real(patch(:));
-            dy = imag(patch(:));
-            
-            C = [sum(dx.*dx.*h(:)), sum(dx.*dy.*h(:));...
-                 sum(dy.*dx.*h(:)), sum(dy.*dy.*h(:))];
-
-            [V, D] = eig(C);
-            
-            postMap(ii, jj) = sqrt(D(2, 2)) * (V(1,2) + 1i*V(2, 2));   
-            ss(:, ii, jj) = [abs(D(2, 2)) abs(D(1, 1))];
-        end
+%     for ii = 1:hh,
+%         for jj = 1:ww,
+%             patch = imgPad(ii:ii+winSize-1, jj:jj+winSize-1);
+%             dx = real(patch(:));
+%             dy = imag(patch(:));
+%             
+%             C = [sum(dx.*dx.*h(:)), sum(dx.*dy.*h(:));...
+%                  sum(dy.*dx.*h(:)), sum(dy.*dy.*h(:))];
+% 
+%             [V, D] = eig(C);
+%             
+%             postMap(ii, jj) = sqrt(D(2, 2)) * (V(1,2) + 1i*V(2, 2));   
+%             ss(:, ii, jj) = [abs(D(2, 2)) abs(D(1, 1))];
+%         end
 %         fprintf('.');
 %         if ~mod(ii, 30),
 %             fprintf('\n');
 %         end
-    end
+%     end
 %     fprintf('\n');
+    dx = real(img);
+    dy = imag(img);
+    dxx = conv2(dx.*dx, h, 'same');
+    dxy = conv2(dx.*dy, h, 'same');
+    dyy = conv2(dy.*dy, h, 'same');
+    
+    A = ones(size(img));
+    B = -(dxx+dyy);
+    C = dxx.*dyy - dxy.*dxy;
+    
+    ss(1, :, :) = abs((-B+sqrt(B.^2-4*A.*C))./(2*A));
+    ss(2, :, :) = abs((-B-sqrt(B.^2-4*A.*C))./(2*A));
+    
+    postMap = [];
    
 end
