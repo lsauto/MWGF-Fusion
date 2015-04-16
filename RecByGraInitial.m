@@ -53,17 +53,10 @@ function [imgRec, rms, gObj] = RecoverByGra(imgOri, Obj, iter, res, alpha)
         f1 = max(f1, 0);
         f1 = min(f1, 255);
 
-        %rms=fRMS(f1, f0);
-       % disp(['The ' num2str(ii) 'iteration rms = ' num2str(rms)]);
-        
-%         if rms < res,
-%             break;
-%         end
 
         f0 = f1;  
     end
     
-%     imgRec = Boundary(f1, dxObj, dyObj);
     disp(['The ' num2str(ii) ' iteration is complete.']);
     imgRec = f1;
 end

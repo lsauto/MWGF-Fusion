@@ -102,6 +102,30 @@ function [ww1, ww2] = MergeWeights(wtL1, wtL2, wtS1, wtS2, para)
             ww1 = wt1;
             ww2 = wt2;  
         case 2,
+            alpha = 5;
+            subSS = wtS1 - wtS2;
+            tempIdx = and(subSS < 0, validIdx1);
+            temp = sort(wtS2(tempIdx(:)), 'descend');
+            thre2 = temp(ceil(length(temp) * per));
+
+            tempIdx = and(subSS > 0, validIdx2);
+            temp = sort(wtS1(tempIdx(:)), 'descend');
+            thre1 = temp(ceil(length(temp) * per));
+
+            validIdx = and(subSS >=0, validIdxMid);
+            wt1(validIdx) = (1+exp(alpha*(wtS1(validIdx)-thre1)./(thre1+eps)))./ ...
+                (1+exp(alpha*(wtS1(validIdx)-thre1)./(thre1+eps))+exp((wtS2(validIdx)-wtS1(validIdx))./(wtS2(validIdx)+wtS1(validIdx)+eps))); % adopt the soft-max
+            wt2(validIdx) = 1 - wt1(validIdx); % adopt the soft-max
+
+            validIdx = and(subSS <0, validIdxMid);
+            wt2(validIdx) = (1+exp(alpha*(wtS2(validIdx)-thre2)./(thre2+eps)))./ ...
+                (1+exp(alpha*(wtS2(validIdx)-thre2)./(thre2+eps))+exp((-wtS2(validIdx)+wtS1(validIdx))./(wtS2(validIdx)+wtS1(validIdx)+eps))); % adopt the soft-max
+            wt1(validIdx) = 1 - wt2(validIdx); % adopt the soft-max
+            
+            %---
+            ww1 = wt1;
+            ww2 = wt2;
+        case 3,
             wt1(validIdxMid) = wtS1(validIdxMid);
             wt2(validIdxMid) = wtS2(validIdxMid);
             % --------------------------

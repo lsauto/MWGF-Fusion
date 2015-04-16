@@ -8,7 +8,7 @@
 function main_test()
 
 %     clear
-    close all
+%     close all
     clc
 
     %% ------ Input the images ----------------
@@ -23,8 +23,8 @@ function main_test()
 %     path2 = '.\image\desk_B.tif';
 %     path1 = '.\image\pepsi_A.tif';
 %     path2 = '.\image\pepsi_B.tif';
-    path1 = '.\image\book_A.bmp';
-    path2 = '.\image\book_B.bmp';
+    path1 = '.\image\book_B.bmp';
+    path2 = '.\image\book_A.bmp';
 %     path1 = '.\image\cameramanleft.jpg';
 %     path2 = '.\image\cameramanright.jpg';
     % -------------- The color -----------------  
@@ -48,9 +48,9 @@ function main_test()
     para.Scale.ssigma = 0.5;
     para.Scale.alpha = 0.5;
     % -------------- the Merge parameter -------------
-    para.Merge.per = 0.1;
-    para.Merge.show = 1;
+    para.Merge.per = 0.001;
     para.Merge.margin = 4*para.Scale.lsigma;
+    para.Merge.method = 2;
     % ------------- the Reconstruct parameter -----------
     para.Rec.iter = 500;
     para.Rec.res = 1e-6;

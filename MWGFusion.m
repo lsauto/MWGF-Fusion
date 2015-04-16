@@ -56,12 +56,6 @@ function imgRec = MWGFusion(img1, img2, para)
         ww2 = 1-ww1;
     end
     
-    % Show
-    if isfield(para.Merge, 'show') && para.Merge.show,
-        paraShow.fig = 'gradient weights';
-        paraShow.title = 'gradient weights';
-        ShowImageGrad(ww1, paraShow);
-    end
     
     %% ----------------- Weighted gradient-based fusion --------------------
     imgRec = zeros(size(img1));
