@@ -23,10 +23,10 @@ function main_test()
 %     path2 = '.\image\desk_B.tif';
 %     path1 = '.\image\pepsi_A.tif';
 %     path2 = '.\image\pepsi_B.tif';
-%     path1 = '.\image\book_A.bmp';
-%     path2 = '.\image\book_B.bmp';
-    path1 = '.\image\cameramanleft.jpg';
-    path2 = '.\image\cameramanright.jpg';
+    path1 = '.\image\book_A.bmp';
+    path2 = '.\image\book_B.bmp';
+%     path1 = '.\image\cameramanleft.jpg';
+%     path2 = '.\image\cameramanright.jpg';
     % -------------- The color -----------------  
 %     path1 = '.\image\temple_A.bmp';
 %     path2 = '.\image\temple_B.bmp';

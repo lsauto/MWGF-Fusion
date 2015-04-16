@@ -1,7 +1,7 @@
 % WeightGradient.m
 % -------------------------------------------------------------------
 % Date:    2/04/2013
-% Last modified: 15/04/2015
+% Last modified: 16/04/2015
 % -------------------------------------------------------------------
 function [ww1, ww2, wt1, wt2] = WeightGradient(dxdy1, dxdy2, para)
     
@@ -67,6 +67,10 @@ function [postMap, ss] = EigDecBlock(img, sigma)
     ss(1, :, :) = abs((-B+sqrt(B.^2-4*A.*C))./(2*A));
     ss(2, :, :) = abs((-B-sqrt(B.^2-4*A.*C))./(2*A));
     
-    postMap = [];
+    
+    V12 = (dxx-dyy + sqrt((dxx-dyy).^2+4*dxy.*dxy))./(2*dxy);
+    
+    
+    postMap = sqrt(squeeze(ss(1, :, :))).*(V12 + 1i)./sqrt(V12.^2+1+eps);
    
 end

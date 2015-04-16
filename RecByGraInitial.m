@@ -3,7 +3,7 @@
 % -------------------------------------------------------------------
 % This function is just the joint of RecoverByGra and initial f0
 % Date:    17/03/2013
-% Last modified: 31/03/2013
+% Last modified: 16/04/2015
 % -------------------------------------------------------------------
 
 function [imgRec, rms, gObj] = RecByGraInitial(img1, img2, ww1, ww2, dxdy, iter, res, alpha, iniMode)
@@ -39,12 +39,13 @@ function [imgRec, rms, gObj] = RecoverByGra(imgOri, Obj, iter, res, alpha)
         gObj = LaplaceZ(Obj);
     end
     
-
+    rms = [];
 %     f0 = Boundary(imgOri, dxObj, dyObj);
     f0 = imgOri;
     for ii = 1:iter,
 %         f0 = Boundary(f0, dxObj, dyObj);
-        deltaF = imfilter(f0, lp, 'replicate', 'corr');
+        deltaF = imfilter(int16(f0), lp, 'replicate', 'corr');
+        deltaF = double(deltaF);
         delta = alpha * (deltaF-gObj);
 
         f1 = f0 + delta;
@@ -52,8 +53,8 @@ function [imgRec, rms, gObj] = RecoverByGra(imgOri, Obj, iter, res, alpha)
         f1 = max(f1, 0);
         f1 = min(f1, 255);
 
-        rms=fRMS(f1, f0);
-        disp(['The ' num2str(ii) 'iteration rms = ' num2str(rms)]);
+        %rms=fRMS(f1, f0);
+       % disp(['The ' num2str(ii) 'iteration rms = ' num2str(rms)]);
         
 %         if rms < res,
 %             break;
@@ -63,6 +64,7 @@ function [imgRec, rms, gObj] = RecoverByGra(imgOri, Obj, iter, res, alpha)
     end
     
 %     imgRec = Boundary(f1, dxObj, dyObj);
+    disp(['The ' num2str(ii) ' iteration is complete.']);
     imgRec = f1;
 end
 
