@@ -31,12 +31,12 @@ function Fusion_test_for_misregistered_img()
     paraShow.fig = 'Input 2';
     paraShow.title = 'Org2';
     ShowImageGrad(img2, paraShow)
-    %% ---- The parameter -----
+    %% ---- The parameters -----
     % ----------- the multi scale -----
     para.Scale.lsigma = 4;
     para.Scale.ssigma = 0.5;
     para.Scale.alpha = 0.5;
-    % -------------- the Merge parameter for fusion of mis-registered image -------------
+    % -------------- the Merge parameter for fusion of mis-registered images -------------
     para.Merge.per = 0.5;
     para.Merge.margin = 1.5*para.Scale.lsigma;
     para.Merge.method = 2;
