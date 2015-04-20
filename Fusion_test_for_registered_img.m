@@ -37,8 +37,8 @@ function Fusion_test_for_registered_img()
     para.Scale.ssigma = 0.5;
     para.Scale.alpha = 0.5;
     % -------------- the Merge parameter fusion of registered images-------------
-    para.Merge.per = 0.001;
-    para.Merge.margin = 4*para.Scale.lsigma;
+    para.Merge.per = 0.5;
+    para.Merge.margin = 1.5*para.Scale.lsigma;
     para.Merge.method = 2;
     % ------------- the Reconstruct parameter -----------
     para.Rec.iter = 500;
