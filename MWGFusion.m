@@ -59,7 +59,7 @@ function imgRec = MWGFusion(img1, img2, para)
     
     %% ----------------- Weighted gradient-based fusion --------------------
     imgRec = zeros(size(img1));
-    disp('Reconstructing the fused image from the gradient weights ...')
+    disp('Reconstructing the fused image from the merged gradients ...')
     for ii = 1:size(img1, 3),
         [dx1, dy1] = GradientMethod(img1(:, :, ii), 'zhou'); 
         [dx2, dy2] = GradientMethod(img2(:, :, ii), 'zhou');
