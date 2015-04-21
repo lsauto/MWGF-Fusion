@@ -11,5 +11,5 @@ above publication if you use this code.
 
 
 ------------------------------------------------------------------------------
-To run the fusion algorithm, use the Fusion_test_for_registered_img.m for good registered
+To run the fusion algorithm, use the Fusion_test_for_registered_img.m for well registered
 source images, and Fusion_test_for_misregistered_img.m for mis-registered source images.
