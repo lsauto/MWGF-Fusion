@@ -17,6 +17,9 @@ end
 
 
 %% ------------------------------------------------
+% [c11, c12    [dxx, dxy
+%  c21, c22] =  dyx, dyy]
+% B = -(c11+c22), C = c11*c22-c12*c21
 function [postMap, ss] = EigDecBlock(img, sigma)
 
     winSize = ceil(sigma*6);
@@ -40,6 +43,8 @@ function [postMap, ss] = EigDecBlock(img, sigma)
     
     ss(1, :, :) = abs((-B+sqrt(B.^2-4*A.*C))./(2*A));
     ss(2, :, :) = abs((-B-sqrt(B.^2-4*A.*C))./(2*A));
+    
+    V12 = (dxx-dyy + sqrt((dxx-dyy).^2+4*dxy.*dxy))./(2*dxy);
     
     postMap = sqrt(squeeze(ss(1, :, :))).*(V12 + 1i)./sqrt(V12.^2+1+eps);
    
