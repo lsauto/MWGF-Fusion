@@ -68,7 +68,7 @@ function [postMap, ss] = EigDecBlock(img, sigma)
     ss(2, :, :) = abs((-B-sqrt(B.^2-4*A.*C))./(2*A));
     
     
-    V12 = (dxx-dyy + sqrt((dxx-dyy).^2+4*dxy.*dxy))./(2*dxy);
+    V12 = (dxx-dyy + sqrt((dxx-dyy).^2+4*dxy.*dxy))./(2*dxy+eps);
     
     
     postMap = sqrt(squeeze(ss(1, :, :))).*(V12 + 1i)./sqrt(V12.^2+1+eps);
